@@ -8,7 +8,7 @@
   },
 
   "scripts":{
-    "start": "netlify-lambda serve ./scr",
-    "build": "netlify-lambda build ./scr"
+    "start": "netlify-lambda serve ./src",
+    "build": "netlify-lambda build ./src"
   }
 }

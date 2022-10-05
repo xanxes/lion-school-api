@@ -160,3 +160,5 @@ app.use('/.netlify/functions/api',routes);
 app.listen(8080, function(){
     console.log('Servidor aguardando requisicoes.');
 })
+
+module.exports = app;
