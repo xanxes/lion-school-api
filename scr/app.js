@@ -1,7 +1,8 @@
+const { Router } = require('express')
 
 //import das funcoes
-const {getCursos, getCurso} = require('./modulo/cursos')
-const {getAlunos, getAluno, getStatusAluno, getDisciplinaAluno, getAlunoPorAno, getAlunoPorAnoFiltro, getAnoDeConclusao, getStatusAlunoFiltro, filtroAno, filtroStatus} = require('./modulo/alunos')
+const {getCursos, getCurso} = require('../modulo/cursos')
+const {getAlunos, getAluno, getStatusAluno, getDisciplinaAluno, getAlunoPorAno, getAlunoPorAnoFiltro, getAnoDeConclusao, getStatusAlunoFiltro, filtroAno, filtroStatus} = require('../modulo/alunos')
 
 //import da biblioteca express
 const express = require('express');
@@ -15,9 +16,10 @@ const bodyParser = require('body-parser');
 const { request, response } = require('express');
 
 const app = express();
+const routes = Router();
 
 //Dando permissoes
-app.use((request, response, next) => {
+routes.use((request, response, next) => {
     response.header(`Access-Control-Allow-Origin`, `*`)
     response.header(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`)
     app.use(cors())
@@ -25,7 +27,7 @@ app.use((request, response, next) => {
 })
 
 //EndPoint - Todos os Cursos
-app.get('/course', cors(), async (request, response, next) => {
+routes.get('/course', cors(), async (request, response, next) => {
     let courses = getCurso()
 
     if (courses) {
@@ -37,7 +39,7 @@ app.get('/course', cors(), async (request, response, next) => {
 });
 
 //EndPoint - Listagem de curso por sigla
-app.get('/cursos/:sigla', cors(), async function(request, response, next){
+routes.get('/cursos/:sigla', cors(), async function(request, response, next){
 
     let sigla =  request.params.sigla;
     let curso = getCursos(sigla);
@@ -52,7 +54,7 @@ app.get('/cursos/:sigla', cors(), async function(request, response, next){
 })
 
 //EndPoint - Listagem de todos os alunos de cada curso pela sigla
-app.get('/alunos/:sigla', cors(), async function(request, response, next){
+routes.get('/alunos/:sigla', cors(), async function(request, response, next){
 
     let sigla =  request.params.sigla;
     let curso = getAlunos(sigla);
@@ -67,7 +69,7 @@ app.get('/alunos/:sigla', cors(), async function(request, response, next){
 })
 
 //EndPoint - Listagem dos alunos de cada curso com sua situacao
-app.get('/alunos/status/:status', cors(), async (request, response, next) => {
+routes.get('/alunos/status/:status', cors(), async (request, response, next) => {
     const { status } = request.params;
     
     const studentsList = getStatusAluno(status);
@@ -81,7 +83,7 @@ app.get('/alunos/status/:status', cors(), async (request, response, next) => {
 
 
 //EndPoint - Listagem das disciplinas do aluno pelo numero da matricula
-app.get('/disciplinas/:sigla', cors(), async function(request, response, next){
+routes.get('/disciplinas/:sigla', cors(), async function(request, response, next){
 
     let sigla =  request.params.sigla;
     let curso = getDisciplinaAluno(sigla);
@@ -96,10 +98,8 @@ app.get('/disciplinas/:sigla', cors(), async function(request, response, next){
 })
 
 
-<<<<<<< HEAD
-=======
 //EndPoint - informacoes do aluno pelo numero da matricula
-app.get('/aluno/:matricula', cors(), async (request, response, next) => {
+routes.get('/aluno/:matricula', cors(), async (request, response, next) => {
     const studentEnrollment = request.params.matricula;
     const studentInfo = getAluno(studentEnrollment);
 
@@ -111,7 +111,7 @@ app.get('/aluno/:matricula', cors(), async (request, response, next) => {
 });
 
 // Endpoint - lista alunos a partir do ano de conclusao
-app.get('/alunos/conclusao/:data', cors(), async (request, response, next) => {
+routes.get('/alunos/conclusao/:data', cors(), async (request, response, next) => {
     const { data } = request.params;
     
     const studentsList = getAlunoPorAno(data);
@@ -124,7 +124,7 @@ app.get('/alunos/conclusao/:data', cors(), async (request, response, next) => {
 });
 
 //EndPoint - lista os anos de conclusao
-app.get('/conclusao/?', cors(), async (request, response, next) => {
+routes.get('/conclusao/?', cors(), async (request, response, next) => {
     const { curso, status } = request.query;
 
     const conclusionYears = getAnoDeConclusao(curso, status);
@@ -138,7 +138,7 @@ app.get('/conclusao/?', cors(), async (request, response, next) => {
 
 
 // EndPoint - lista todos os alunos de um curso
-app.get('/alunos/:sigla/', function(request, response, next) {
+routes.get('/alunos/:sigla/', function(request, response, next) {
     let curso = request.params.sigla
     let status = request.query.status
     let ano = request.query.ano
@@ -154,8 +154,8 @@ app.get('/alunos/:sigla/', function(request, response, next) {
     }
 })
 
+app.use('/.netlify/functions/api',routes);
 
->>>>>>> 0eb2c017846bac39e949182bdffdda918c34cb9d
 //Start da API
 app.listen(8080, function(){
     console.log('Servidor aguardando requisicoes.');

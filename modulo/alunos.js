@@ -819,33 +819,7 @@ const getAluno = (studentEnrollment) => {
             }
         }
 
-        const getAnoDeConclusao = (courseInitial, studentStatus) => {
-            let years = [];
-            let course = courseInitial.toLowerCase();
-            let status = studentStatus;
-            let error = true;
         
-            alunos.forEach(index => {
-                index.curso.forEach(courseIndex => {
-                    if (course == courseIndex.sigla.toLowerCase()) {
-                        if (status == undefined || status == '' || status.toLowerCase() != 'finalizado' && status.toLowerCase() != 'cursando') {
-                            years.push(courseIndex.conclusao);
-                            error = false;
-                        } else if (status.toLowerCase() == index.status.toLowerCase()) {
-                            years.push(courseIndex.conclusao);
-                            error = false;
-                        }
-                    }
-                });
-            });
-        
-            if (error) {
-                return false;
-            } else {
-                return years;
-            }
-        }
-
 
         const getAlunoPorAno = (year) => {
             let conclusionYear = year;
