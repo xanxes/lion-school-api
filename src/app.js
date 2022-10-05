@@ -157,8 +157,8 @@ routes.get('/alunos/:sigla/', function(request, response, next) {
 app.use('/.netlify/functions/api',routes);
 
 //Start da API
-app.listen(8080, function(){
-    console.log('Servidor aguardando requisicoes.');
-})
+// app.listen(8080, function(){
+//     console.log('Servidor aguardando requisicoes.');
+// })
 
 module.exports = app;
