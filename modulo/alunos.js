@@ -906,5 +906,4 @@ const filtroAno = function (sigla, status, ano) {
         getStatusAlunoFiltro,
         getAlunoPorAno,
         getAlunoPorAnoFiltro,
-        getAnoDeConclusao
     }
