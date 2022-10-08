@@ -2,7 +2,7 @@ const { Router } = require('express')
 
 //import das funcoes
 const {getCursos, getCurso} = require('../modulo/cursos')
-const {getAlunos, getAluno, getStatusAluno, getDisciplinaAluno, getAlunoPorAno, getAlunoPorAnoFiltro, getAnoDeConclusao, getStatusAlunoFiltro, filtroAno, filtroStatus} = require('../modulo/alunos')
+const {getAlunos, getAluno, getStatusAluno, getDisciplinaAluno, getAlunoPorAno, getAlunoPorAnoFiltro, getStatusAlunoFiltro, filtroAno, filtroStatus} = require('../modulo/alunos')
 
 //import da biblioteca express
 const express = require('express');
