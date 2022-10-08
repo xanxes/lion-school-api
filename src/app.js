@@ -123,19 +123,6 @@ routes.get('/alunos/conclusao/:data', cors(), async (request, response, next) =>
     }
 });
 
-//EndPoint - lista os anos de conclusao
-routes.get('/conclusao/?', cors(), async (request, response, next) => {
-    const { curso, status } = request.query;
-
-    const conclusionYears = getAnoDeConclusao(curso, status);
-
-    if (conclusionYears) {
-        response.status(200).json(conclusionYears);
-    } else {
-        response.status(500);
-    }
-});
-
 
 // EndPoint - lista todos os alunos de um curso
 routes.get('/alunos/:sigla/', function(request, response, next) {
